@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narozeninovač</title>
+</head>
+<body>
+    <h1>Narozeninovač</h1>
+    
+    <label for="birthdate">Datum narození:</label>
+    <input type="date" id="birthdate" required>
+    <button onclick="calculateDaysAndAge()">Spočítat</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calculateDaysAndAge() {
+            var birthdateInput = document.getElementById("birthdate");
+            var birthdate = new Date(birthdateInput.value);
+
+            var currentDate = new Date();
+
+            var currentYearBirthday = new Date(currentDate.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+            if (currentDate < currentYearBirthday) {
+                currentYearBirthday.setFullYear(currentDate.getFullYear());
+            } 
+            else {
+                currentYearBirthday.setFullYear(currentDate.getFullYear() + 1);
+            }
+
+            var timeDiff = currentYearBirthday.getTime() - currentDate.getTime();
+            var daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            var age = currentDate.getFullYear() - birthdate.getFullYear();
+
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = "Do narozenin zbývá " + daysRemaining + " dní. Vám je nebo bude " + age + " let.";
+        }
+    </script>
+</body>
+</html>
